@@ -12,11 +12,13 @@ public class Jogo extends Canvas implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
 	public static int WIDTH = 480, HEIGTH = 480;
 	Jogador jogador;
+	Mundo mundo;
 	
 	public Jogo() {
 		this.addKeyListener(this);
 		this.setPreferredSize( new Dimension(WIDTH,HEIGTH));
-		jogador = new Jogador(200,200);
+		jogador = new Jogador(32,32);
+		mundo = new Mundo();
 	}
 	
 	public void tick() {
@@ -37,6 +39,8 @@ public class Jogo extends Canvas implements Runnable, KeyListener {
 		g.fillRect(0, 0, WIDTH, HEIGTH);
 		
 		jogador.render(g);
+		mundo.render(g);
+		
 		
 		bs.show();
 		
