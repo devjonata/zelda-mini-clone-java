@@ -19,6 +19,7 @@ public class Jogo extends Canvas implements Runnable, KeyListener {
 		this.setPreferredSize( new Dimension(WIDTH,HEIGTH));
 		jogador = new Jogador(32,32);
 		mundo = new Mundo();
+		new SpriteSheet();
 	}
 	
 	public void tick() {

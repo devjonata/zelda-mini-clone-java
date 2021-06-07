@@ -30,8 +30,10 @@ public class Jogador extends Rectangle {
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.orange);
-		g.fillRect(x, y, width, height);
+		//g.setColor(Color.orange);
+		//g.fillRect(x, y, width, height);
+		g.drawImage(SpriteSheet.jogador_frontal,x,y,32,32,null);
+		
 	}
 
 }
