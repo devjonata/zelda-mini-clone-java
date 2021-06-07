@@ -17,7 +17,6 @@ public class Programa {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
-		
 		new Thread(jogo).start();
 	}
 
