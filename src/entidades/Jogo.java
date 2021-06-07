@@ -4,14 +4,23 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
-public class Jogo extends Canvas implements Runnable {
+public class Jogo extends Canvas implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
 	public static int WIDTH = 480, HEIGTH = 480;
+	Jogador jogador;
 	
 	public Jogo() {
+		this.addKeyListener(this);
 		this.setPreferredSize( new Dimension(WIDTH,HEIGTH));
+		jogador = new Jogador(200,200);
+	}
+	
+	public void tick() {
+		jogador.tick();
 	}
 	
 	public void render() {
@@ -27,8 +36,7 @@ public class Jogo extends Canvas implements Runnable {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGTH);
 		
-		g.setColor(Color.red);
-		g.fillRect(50, 50, 100, 100);
+		jogador.render(g);
 		
 		bs.show();
 		
@@ -37,9 +45,51 @@ public class Jogo extends Canvas implements Runnable {
 	@Override
 	public void run() {
 		while(true) {
-		System.out.println("Chamando game looping!");
+		tick();
 		render();
+		try {
+			Thread.sleep(1000/60);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+		
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {	
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+			jogador.right = true;
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+			jogador.left = true;
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+			jogador.up = true;
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+			jogador.down = true;
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+			jogador.right = false;
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+			jogador.left = false;
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+			jogador.up = false;
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+			jogador.down = false;
+		}
+		
 	}
 
 }
